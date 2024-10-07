@@ -16,7 +16,7 @@ This project demonstrates how to integrate **i18n** (Internationalization) into 
 
 ## 🔧 Medium Article
 
-Go to [https://medium.com/@gunesekrem.com/best-practices-for-implementing-i18n-in-react-native-4108550a9cb4]()  and learn step by step
+Go to [my article on medium](https://medium.com/@gunesekrem.com/best-practices-for-implementing-i18n-in-react-native-4108550a9cb4)  and learn step by step
 <br>
 <br>
 
