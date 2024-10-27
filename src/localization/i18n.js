@@ -16,24 +16,37 @@ export const setLocalizeLocale = async (code) => {
     localize.locale = code;
     return localize.translations[code];
   } catch (error) {
+    localize.locale = "en"
+    localize.defaultLocale = "en"
     console.error("Error setting language:", error);
     return null;
   }
 };
 
+
 export const initLanguage = async () => {
   try {
     const languageCode = await getItem("language");
-    if (!languageCode) {
-      const defaultLanguage = getLocales()[0].languageCode;
-      localize.locale = defaultLanguage; // Default 
-      localize.defaultLocale = defaultLanguage;
-    } else {
-      localize.locale = languageCode;
-    }
+    const defaultLanguage = getLocales()[0].languageCode;
+
+    localize.locale = isValidLanguage(languageCode) 
+    ? languageCode 
+    : (isValidLanguage(defaultLanguage) ? defaultLanguage : 'en');
+
+    localize.defaultLocale = localize.locale; 
+
   } catch (error) {
+    localize.locale = "en"
+    localize.defaultLocale = "en"
     console.error("Error initializing language:", error);
   }
+};
+
+const validLanguageCodes = ['en', 'es','tr']; // Geçerli dil kodları
+
+// Geçerli dil kodunu kontrol eden fonksiyon
+export const isValidLanguage = (languageCode) => {
+  return validLanguageCodes.includes(languageCode);
 };
 
 export const getLocalizedStrings = () => {

@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import localize, { getLocalizedStrings, initLanguage, setLocalizeLocale } from '../localization/i18n';
+import localize, { getLocalizedStrings, initLanguage, isValidLanguage, setLocalizeLocale } from '../localization/i18n';
 
 // Creating the Localization context
 const LocalizationContext = createContext();
@@ -23,12 +23,15 @@ export const LocalizationProvider = ({ children }) => {
 
   // Function to change the language and update localized strings
   const setLanguage = async (language) => {
-    const newStrings = await setLocalizeLocale(language);
+    const validLanguage = isValidLanguage(language) ? language : 'en';
+  
+    const newStrings = await setLocalizeLocale(validLanguage);
     if (newStrings) {
-      setLocale(language);
+      setLocale(validLanguage);
       setStrings(newStrings);
     }
   };
+  
   
   // Providing the current locale, setLanguage function, and localized strings to the context
   return (
